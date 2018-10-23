@@ -42,7 +42,7 @@ class SlackGit:
             self.execDeploySh(channel, "ステージングサーバー", "execDeployStg.sh", True)
         elif message == "deploy product":
             self.execDeploySh(channel, "本番環境", "execDeployProduct.sh", False)
-        elif message == "deploy rxbdope":
+        elif message == "deploy operation":
             self.execDeploySh(channel, "ope環境", "execDeployOpe.sh", True)
 
     def execDeploySh(self, channel, serverName, shFile, logFlag):
