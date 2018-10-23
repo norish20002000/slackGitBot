@@ -42,11 +42,13 @@ class SlackGit:
             self.execDeploySh(channel, "ステージングサーバー", "execDeployStg.sh", True)
         elif message == "deploy product":
             self.execDeploySh(channel, "本番環境", "execDeployProduct.sh", False)
+        elif message == "deploy rxbdope":
+            self.execDeploySh(channel, "ope環境", "execDeployOpe.sh", True)
 
     def execDeploySh(self, channel, serverName, shFile, logFlag):
         SlackGit.sc.rtm_send_message(channel, serverName + "にdeploy、始めます。")
         try:
-            SlackGit.sc.rtm_send_message(channel, "waitiing")
+            SlackGit.sc.rtm_send_message(channel, "waiting....................")
             result = subprocess.run(os.path.dirname(os.path.abspath(__file__)) + "/" + shFile
                                     , stdout=subprocess.PIPE
                                     , stderr=subprocess.PIPE
