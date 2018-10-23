@@ -52,10 +52,9 @@ class SlackGit:
                                     , stderr=subprocess.PIPE
                                     , shell=True
                                     , check=True)
-            # if logFlag:
-            SlackGit.sc.rtm_send_message(channel, "ログ出力開始")
-            SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc_jp'))
-            SlackGit.sc.rtm_send_message(channel, result.stderr.decode('euc_jp'))
+            if logFlag:
+                SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc_jp'))
+                SlackGit.sc.rtm_send_message(channel, result.stderr.decode('euc_jp'))
             SlackGit.sc.rtm_send_message(channel, serverName + "にdeploy、終了しました。")
     
             return result
