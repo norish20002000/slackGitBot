@@ -39,28 +39,29 @@ class SlackGit:
 
     def executeCommand(self, message, channel):
         if message == "deploy stg":
-            self.execDeploySh(channel)
-        # elif:
+            self.execDeploySh(channel, "ステージングサーバー", "execDeployStg.sh")
+        elif message == "deploy product":
+            self.execDeploySh(channel, "本番環境", "execDeployProduct.sh")
 
-
-            
-    def execDeploySh(self, channel):
-        SlackGit.sc.rtm_send_message(channel, "ステージングサーバーにdeploy、始めます。")
+    def execDeploySh(self, channel, serverName, shFile):
+        SlackGit.sc.rtm_send_message(channel, serverName + "にdeploy、始めます。")
         try:
             SlackGit.sc.rtm_send_message(channel, "waitiing")
-            result = subprocess.run(os.path.dirname(__file__) + "/execDeploy.sh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True)
+            result = subprocess.run(os.path.dirname(os.path.abspath(__file__)) + "/" + shFile
+                                    , stdout=subprocess.PIPE
+                                    , stderr=subprocess.PIPE
+                                    , shell=True
+                                    , check=True)
             SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc_jp'))
             SlackGit.sc.rtm_send_message(channel, result.stderr.decode('euc_jp'))
-            SlackGit.sc.rtm_send_message(channel, "ステージングサーバーにdeploy、終了しました。")
+            SlackGit.sc.rtm_send_message(channel, serverName + "にdeploy、終了しました。")
     
             return result
         except subprocess.CalledProcessError as err:
-            # SlackGit.sc.rtm_send_message(channel, err)
             print("ERROR:", err)
-            SlackGit.sc.rtm_send_message(channel, "ステージングサーバーにdeploy、失敗しました。\n"\
+            SlackGit.sc.rtm_send_message(channel, serverName + "にdeploy、失敗しました。\n"\
                                                     "エラーを確認して下さい。\n" \
                                                     + err.stderr.decode('euc_jp'))
 
-    
 
 cmd = SlackGit()
