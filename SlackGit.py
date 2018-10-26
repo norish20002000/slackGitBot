@@ -89,15 +89,16 @@ class SlackGit:
             repositoryStr = messageList[2]
             ipStr = messageList[3]
 
-            commitComment = "'"
+            commitComment = "\""
             for str in messageList[4:]:
                 commitComment += str + " "
-            commitComment = commitComment.strip() + "'"
+            commitComment = commitComment.strip() + "\""
 
             shCommand = "execGitPush.sh " + repositoryStr + " " + ipStr + " " + commitComment
-            commentStr = "のfeatureブランチをpush"
+            print(shCommand)
+            # commentStr = "のfeatureブランチをpush"
 
-            self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
+            # self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
 
     def execSh(self, channel, shCommand, ipStr, commentStr, logFlag):
         SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "します。")
