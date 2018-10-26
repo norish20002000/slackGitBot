@@ -88,9 +88,9 @@ class SlackGit:
         # git push repository ip commitComment
         elif messageList[1] == "push":
             repositoryStr = message[2]
-            ipStr = messageList[2]
+            ipStr = messageList[3]
 
-            for str in messageList[3:]:
+            for str in messageList[4:]:
                 commitComment += str + " "
             commitComment.strip
 
