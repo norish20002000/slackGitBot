@@ -89,10 +89,10 @@ class SlackGit:
             repositoryStr = messageList[2]
             ipStr = messageList[3]
 
-            commitComment = "\""
+            commitComment = "'"
             for str in messageList[4:]:
                 commitComment += str + " "
-            commitComment = commitComment.strip() + "\""
+            commitComment = commitComment.strip() + "'"
 
             shCommand = "execGitPush.sh " + repositoryStr + " " + ipStr + " " + commitComment
             commentStr = "のfeatureブランチをpush"
