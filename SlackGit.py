@@ -96,9 +96,9 @@ class SlackGit:
 
             shCommand = "execGitPush.sh " + repositoryStr + " " + ipStr + " " + commitComment
             print(shCommand)
-            # commentStr = "のfeatureブランチをpush"
+            commentStr = "のfeatureブランチをpush"
 
-            # self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
+            self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
 
     def execSh(self, channel, shCommand, ipStr, commentStr, logFlag):
         SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "します。")
