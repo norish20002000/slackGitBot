@@ -81,10 +81,10 @@ class SlackGit:
             ipStr = messageList[3]
             branchNameStr = messageList[4]
 
-            SlackGit.sc.rtm_send_message(channel, repositoryStr + "にbranch作成します。")
+            SlackGit.sc.rtm_send_message(channel, repositoryStr + "repositoryにbranch作成します。")
             try:
                 result = subprocess.run(os.path.dirname(os.path.abspath(__file__))\
-                                        + "/" + "execGitBranch.sh " + ipStr + " " + branchNameStr
+                                        + "/" + "execGitBranch.sh " + repositoryStr + " " + ipStr + " " + branchNameStr
                                         , stdout=subprocess.PIPE
                                         , stderr=subprocess.PIPE
                                         , shell=True
@@ -93,10 +93,10 @@ class SlackGit:
                 if logFlag:
                     SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc_jp'))
                     SlackGit.sc.rtm_send_message(channel, result.stderr.decode('euc_jp'))
-                SlackGit.sc.rtm_send_message(channel, repositoryStr + "にブランチ作成しました。")
+                SlackGit.sc.rtm_send_message(channel, repositoryStr + "repositoryにブランチ作成しました。")
             except subprocess.CalledProcessError as err:
                 print("ERROR:", err)
-                SlackGit.sc.rtm_send_message(channel, repositoryStr + "にbranch作成エラー。\n"\
+                SlackGit.sc.rtm_send_message(channel, repositoryStr + "repositoryにbranch作成エラー。\n"\
                                                         "エラーを確認して下さい。\n"\
                                                         + err.stderr.decode('euc_jp'))
 
