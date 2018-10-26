@@ -48,7 +48,7 @@ class SlackGit:
         elif (message[0:10] == "git branch") and (len(message.split(' ')) == 5):
             print(message)
             self.execGitCommand(channel, message, True)
-        elif (message[0:7] == "git push") and (len(message.split(' ') == 5)):
+        elif (message[0:8] == "git push") and (len(message.split(' ') == 5)):
             self.execGitCommand(channel, message, True)
 
     def execDeploySh(self, channel, serverName, shFile, logFlag):
