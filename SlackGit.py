@@ -33,7 +33,7 @@ class SlackGit:
         if messageList and len(messageList) > 0:
             for msg in messageList:
                 if msg and 'text' in msg and SlackGit.botIdStr in msg['text']:
-                    return msg['text'].split(SlackGit.botIdStr)[1].strip().lower(), msg['channel']
+                    return msg['text'].split(SlackGit.botIdStr)[1].strip(), msg['channel']
         
         return None, None
 
@@ -87,7 +87,7 @@ class SlackGit:
 
         # git push repository ip commitComment
         elif messageList[1] == "push":
-            repositoryStr = message[2]
+            repositoryStr = messageList[2]
             ipStr = messageList[3]
 
             commitComment = ""
