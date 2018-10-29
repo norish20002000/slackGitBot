@@ -62,6 +62,14 @@ class SlackGit:
         else:
             return False
 
+    # slack特殊文字置換
+    def replaceMessage(self, message):
+        # Double quotation start:“ end:”
+        message = message.replace('“', "\"")
+        message = message.replace('”', "\"")
+
+        return message
+
     def execDeploySh(self, channel, serverName, shFile, logFlag):
         SlackGit.sc.rtm_send_message(channel, serverName + "にdeploy、始めます。")
         try:
@@ -84,6 +92,9 @@ class SlackGit:
                                                     + err.stderr.decode('euc_jp'))
 
     def execGitCommand(self, channel, message, logFlag):
+        # slack特殊文字置換
+        message = self.replaceMessage(message)
+
         messageList = message.split(' ')
 
         # git branch repository ip feature/hogehoge
