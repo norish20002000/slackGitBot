@@ -45,18 +45,18 @@ class SlackGit:
         elif message == "deploy operation":
             self.execDeploySh(channel, "ope環境", "execDeployOpe.sh", True)
         elif (message[0:10] == "git branch") and (len(message.split(' ')) == 5):
-            print(message)
             self.execGitCommand(channel, message, True)
         elif (self.isGitPushCommand(message)):
             self.execGitCommand(channel, message, True)
 
     # check git push command
     def isGitPushCommand(self, message):
-        messageWithoutComment = message[:message.find('"')-1]
+        # Double quotation start:“ end:”
+        messageWithoutComment = message[:message.find('“')-1]
 
-        # push "x2 commnet抜きコマンド配列==4
+        # push ダブルクォーテーション commnet抜きコマンド配列==4
         if message[0:8] == "git push"\
-           and message.count('"') == 2\
+           and message.count('“') == 1 and message.count('”') == 1\
            and len(messageWithoutComment.split(' ')) == 4:
             return True
         else:
