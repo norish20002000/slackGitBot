@@ -111,8 +111,8 @@ class SlackGit:
                                     , check=True)
 
             if logFlag:
-                SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc_jp'))
-                SlackGit.sc.rtm_send_message(channel, result.stderr.decode('euc_jp'))
+                SlackGit.sc.rtm_send_message(channel, result.stdout.decode())
+                SlackGit.sc.rtm_send_message(channel, result.stderr.decode())
             SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "しました。")
         except subprocess.CalledProcessError as err:
             print("ERROR:", err)
