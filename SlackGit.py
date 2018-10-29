@@ -126,7 +126,7 @@ class SlackGit:
 
         elif messageList[1] == "pull":
             repositoryStr = messageList[2]
-            ipStr = message[3]
+            ipStr = messageList[3]
             shCommand = "execGitPull.sh " + repositoryStr + " " + ipStr
             commentStr = "のdevelopブランチを最新化"
 
