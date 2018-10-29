@@ -118,7 +118,7 @@ class SlackGit:
             print("ERROR:", err)
             SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "エラー。\n"\
                                                     "エラーを確認して下さい。\n"\
-                                                    + err.stderr.decode('euc_jp'))
+                                                    + err.stderr.decode())
 
 
 cmd = SlackGit()
