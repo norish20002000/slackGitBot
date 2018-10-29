@@ -47,8 +47,20 @@ class SlackGit:
         elif (message[0:10] == "git branch") and (len(message.split(' ')) == 5):
             print(message)
             self.execGitCommand(channel, message, True)
-        elif (message[0:8] == "git push"):
+        elif (self.isGitPushCommand(message)):
             self.execGitCommand(channel, message, True)
+
+    # check git push command
+    def isGitPushCommand(self, message):
+        messageWithoutComment = message[:message.find('"')-1]
+
+        # push "x2 commnet抜きコマンド配列==4
+        if message[0:8] == "git push"\
+           and message.count('"') == 2\
+           and len(messageWithoutComment.split(' ')) == 4:
+            return True
+        else:
+            return False
 
     def execDeploySh(self, channel, serverName, shFile, logFlag):
         SlackGit.sc.rtm_send_message(channel, serverName + "にdeploy、始めます。")
@@ -89,10 +101,10 @@ class SlackGit:
             repositoryStr = messageList[2]
             ipStr = messageList[3]
 
-            commitComment = "\""
+            commitComment = ""
             for str in messageList[4:]:
                 commitComment += str + " "
-            commitComment = commitComment.strip() + "\""
+            commitComment = commitComment.strip()
 
             shCommand = "execGitPush.sh " + repositoryStr + " " + ipStr + " " + commitComment
             print(shCommand)
