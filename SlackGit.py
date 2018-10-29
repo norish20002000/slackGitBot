@@ -48,6 +48,8 @@ class SlackGit:
             self.execGitCommand(channel, message, True)
         elif (self.isGitPushCommand(message)):
             self.execGitCommand(channel, message, True)
+        elif (message[:8] == "git pull") and (len(message.split(' ')) == 4):
+            self.execGitCommand(channel, message, True)
 
     # check git push command
     def isGitPushCommand(self, message):
@@ -118,8 +120,15 @@ class SlackGit:
             commitComment = commitComment.strip()
 
             shCommand = "execGitPush.sh " + repositoryStr + " " + ipStr + " " + commitComment
-            print(shCommand)
             commentStr = "のfeatureブランチをpush"
+
+            self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
+
+        elif messageList[1] == "pull":
+            repositoryStr = messageList[2]
+            ipStr = message[3]
+            shCommand = "execGitPull.sh " + repositoryStr + " " + ipStr
+            commentStr = "のdevelopブランチを最新化"
 
             self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
 
