@@ -53,12 +53,15 @@ class SlackGit:
 
     # check git push command
     def isGitPushCommand(self, message):
+        # slack特殊文字置換
+        message = self.replaceMessage(message)
+
         # Double quotation start:“ end:”
-        messageWithoutComment = message[:message.find('“')-1]
+        messageWithoutComment = message[:message.find('\"')-1]
 
         # push ダブルクォーテーション commnet抜きコマンド配列==4
         if message[0:8] == "git push"\
-           and message.count('“') == 1 and message.count('”') == 1\
+           and message.count('\"') == 2\
            and len(messageWithoutComment.split(' ')) == 4:
             return True
         else:
