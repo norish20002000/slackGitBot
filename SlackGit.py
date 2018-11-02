@@ -5,6 +5,9 @@ import os
 from slackclient import SlackClient
 import AppConf
 import subprocess
+import io,sys
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 class SlackGit:
     botIdStr = '<@' + AppConf.BOT_ID + '>'
