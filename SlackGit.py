@@ -146,8 +146,8 @@ class SlackGit:
                                      + "/" + shCommand
                                     , stdout=subprocess.PIPE
                                     , stderr=subprocess.PIPE
-                                    , shell=True
-                                    , check=True)
+                                    , shell=True)
+                                    # , check=True)
 
             if logFlag:
                 SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc-jp', 'ignore'))
