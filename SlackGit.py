@@ -110,7 +110,7 @@ class SlackGit:
             repositoryStr = messageList[2]
             ipStr = messageList[3]
             branchNameStr = messageList[4]
-            shCommand = "execGitBranch.sh " + repositoryStr + " " + ipStr + " \"" + branchNameStr + "\""
+            shCommand = "execGitBranch.sh " + repositoryStr + " " + ipStr + " " + branchNameStr
             commentStr = "にブランチ作成"
 
             self.execSh(channel, shCommand, ipStr, commentStr, logFlag )
@@ -139,15 +139,15 @@ class SlackGit:
             self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
 
     def execSh(self, channel, shCommand : str, ipStr, commentStr, logFlag):
-        shCommand = shCommand.encode('euc-jp', 'replace').decode('euc-jp', 'replace')
+        # shCommand = shCommand.encode('euc-jp', 'replace').decode('euc-jp', 'replace')
         SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "します。")
         try:
             result = subprocess.run(os.path.dirname(os.path.abspath(__file__))\
-                                     + "/" + shCommand)
-                                    # , stdout=subprocess.PIPE
-                                    # , stderr=subprocess.PIPE
-                                    # , shell=True
-                                    # , check=True)
+                                     + "/" + shCommand
+                                    , stdout=subprocess.PIPE
+                                    , stderr=subprocess.PIPE
+                                    , shell=True
+                                    , check=True)
 
             if logFlag:
                 SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc-jp', 'ignore'))
