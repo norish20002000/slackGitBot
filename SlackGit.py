@@ -5,9 +5,9 @@ import os
 from slackclient import SlackClient
 import AppConf
 import subprocess
-import io,sys
+# import io,sys
 
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+# sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 class SlackGit:
     botIdStr = '<@' + AppConf.BOT_ID + '>'
@@ -148,14 +148,14 @@ class SlackGit:
                                     , check=True)
 
             if logFlag:
-                SlackGit.sc.rtm_send_message(channel, result.stdout)
-                SlackGit.sc.rtm_send_message(channel, result.stderr)
+                SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc-jp', 'ignore'))
+                SlackGit.sc.rtm_send_message(channel, result.stderr.decode('euc-jp', 'ignore'))
             SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "しました。")
         except subprocess.CalledProcessError as err:
             # print("ERROR:", err)
             SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "エラー。\n"\
                                                     "エラーを確認して下さい。\n"\
-                                                    + err.stderr)
+                                                    + err.stderr.decode('euc-jp', 'ignore'))
 
 
 cmd = SlackGit()
