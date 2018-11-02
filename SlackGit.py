@@ -123,7 +123,7 @@ class SlackGit:
             commitComment = ""
             for str in messageList[4:]:
                 commitComment += str + " "
-            commitComment = commitComment.strip()
+            commitComment = commitComment.strip().encode('euc_jp')
 
             shCommand = "execGitPush.sh " + repositoryStr + " " + ipStr + " " + commitComment
             commentStr = "のfeatureブランチをpush"
