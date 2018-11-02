@@ -123,7 +123,7 @@ class SlackGit:
             commitComment = ""
             for str in messageList[4:]:
                 commitComment += str + " "
-            commitComment = commitComment.strip().encode('euc_jp')
+            commitComment = commitComment.strip()
 
             shCommand = "execGitPush.sh " + repositoryStr + " " + ipStr + " " + commitComment
             commentStr = "のfeatureブランチをpush"
@@ -142,7 +142,7 @@ class SlackGit:
         SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "します。")
         try:
             result = subprocess.run(os.path.dirname(os.path.abspath(__file__))\
-                                    + "/" + shCommand
+                                    + "/" + shCommand.encode('euc_jp')
                                     , stdout=subprocess.PIPE
                                     , stderr=subprocess.PIPE
                                     , shell=True
