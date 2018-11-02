@@ -141,17 +141,21 @@ class SlackGit:
     def execSh(self, channel, shCommand, ipStr, commentStr, logFlag):
         SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "します。")
         try:
-            result = subprocess.run(os.path.dirname(os.path.abspath(__file__)) + "/" + shCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True)
+            result = subprocess.run(os.path.dirname(os.path.abspath(__file__)) + "/" + shCommand
+                                    , stdout=subprocess.PIPE
+                                    , stderr=subprocess.PIPE
+                                    , shell=True
+                                    , check=True)
 
             if logFlag:
-                SlackGit.sc.rtm_send_message(channel, result.stdout.decode('euc-jp'))
-                SlackGit.sc.rtm_send_message(channel, result.stderr.decode('euc-jp'))
+                SlackGit.sc.rtm_send_message(channel, result.stdout)
+                SlackGit.sc.rtm_send_message(channel, result.stderr)
             SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "しました。")
         except subprocess.CalledProcessError as err:
             # print("ERROR:", err)
             SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "エラー。\n"\
                                                     "エラーを確認して下さい。\n"\
-                                                    + err.stderr.decode('euc-jp'))
+                                                    + err.stderr)
 
 
 cmd = SlackGit()
