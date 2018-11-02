@@ -110,7 +110,7 @@ class SlackGit:
             repositoryStr = messageList[2]
             ipStr = messageList[3]
             branchNameStr = messageList[4]
-            shCommand = "execGitBranch.sh " + repositoryStr + " " + ipStr + " " + branchNameStr
+            shCommand = "execGitBranch.sh " + repositoryStr + " " + ipStr + " \"" + branchNameStr + "\""
             commentStr = "にブランチ作成"
 
             self.execSh(channel, shCommand, ipStr, commentStr, logFlag )
