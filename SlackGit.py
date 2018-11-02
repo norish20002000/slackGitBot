@@ -142,7 +142,7 @@ class SlackGit:
         SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "します。")
         try:
             result = subprocess.run(os.path.dirname(os.path.abspath(__file__))\
-                                    + "/" + shCommand.encode('euc_jp')
+                                    + "/" + shCommand.decode('euc_jp')
                                     , stdout=subprocess.PIPE
                                     , stderr=subprocess.PIPE
                                     , shell=True
