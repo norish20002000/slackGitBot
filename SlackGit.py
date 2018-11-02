@@ -140,7 +140,6 @@ class SlackGit:
 
     def execSh(self, channel, shCommand : str, ipStr, commentStr, logFlag):
         # shCommand = shCommand.encode('utf-8', 'replace').decode('utf-8', 'replace')
-        shCommand = shCommand.encode('utf-8')
         SlackGit.sc.rtm_send_message(channel, ipStr + commentStr + "します。")
         try:
             result = subprocess.run(os.path.dirname(os.path.abspath(__file__))\
