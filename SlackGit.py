@@ -53,6 +53,8 @@ class SlackGit:
             self.execGitCommand(channel, message, True)
         elif (message[:8] == "git pull") and (len(message.split(' ')) == 4):
             self.execGitCommand(channel, message, True)
+        elif (message[:7] == "git add") and (len(message.split(' ')) == 5):
+            self.execGitCommand(channel, message, True)
 
     # check git push command
     def isGitPushCommand(self, message):
@@ -135,6 +137,15 @@ class SlackGit:
             ipStr = messageList[3]
             shCommand = "execGitPull.sh " + repositoryStr + " " + ipStr
             commentStr = "のdevelopブランチを最新化"
+
+            self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
+
+        elif messageList[1] == "add":
+            repositoryStr = messageList[2]
+            ipStr = messageList[3]
+            addFileStr = messageList[4]
+            shCommand = "execGitAdd.sh " + repositoryStr + " " + ipStr + " " + addFileStr
+            commentStr = "のブランチにgit管理ファイル追加"
 
             self.execSh(channel, shCommand, ipStr, commentStr, logFlag)
 
